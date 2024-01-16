@@ -5,3 +5,5 @@
 ## Mission 6
 
 - ### [module-5-part-1](https://github.com/sajid1545/ph-University-management-client)
+
+- ### [module-6-part-2](https://github.com/sajid1545/ph-University-management-client/tree/module-6-part-2)
