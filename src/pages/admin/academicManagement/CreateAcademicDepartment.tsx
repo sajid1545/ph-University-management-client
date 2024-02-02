@@ -46,15 +46,18 @@ const CreateAcademicDepartment = () => {
 	};
 
 	return (
-		<Flex justify="center" align="center">
-			<Col span={6}>
-				<PHForm onSubmit={onSubmit} resolver={zodResolver(academicDepartmentSchema)}>
-					<PHInput type="text" label="Name" name="name" />
-					<PHSelect label="Academic Faculties" name="academicFaculty" options={facultyOptions} />
-					<Button htmlType="submit">Create Department</Button>
-				</PHForm>
-			</Col>
-		</Flex>
+		<>
+			<h1 style={{ textAlign: "center", margin: "50px" }}>Create Academic Department</h1>
+			<Flex justify="center" align="center">
+				<Col span={6}>
+					<PHForm onSubmit={onSubmit} resolver={zodResolver(academicDepartmentSchema)}>
+						<PHInput type="text" label="Name" name="name" />
+						<PHSelect label="Academic Faculties" name="academicFaculty" options={facultyOptions} />
+						<Button htmlType="submit">Create Department</Button>
+					</PHForm>
+				</Col>
+			</Flex>
+		</>
 	);
 };
 

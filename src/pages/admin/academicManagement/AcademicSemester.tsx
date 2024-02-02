@@ -91,7 +91,7 @@ const AcademicSemester = () => {
 	};
 	return (
 		<div>
-			<h1>This is AcademicSemester component</h1>
+			<h1 style={{ textAlign: "center", margin: "30px" }}>Academic Semester</h1>
 			<Table columns={columns} dataSource={tableData} onChange={onChange} loading={isFetching} />
 		</div>
 	);

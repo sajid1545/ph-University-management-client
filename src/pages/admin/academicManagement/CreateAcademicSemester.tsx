@@ -46,17 +46,20 @@ const CreateAcademicSemester = () => {
 	};
 
 	return (
-		<Flex justify="center" align="center">
-			<Col span={6}>
-				<PHForm onSubmit={onSubmit} resolver={zodResolver(academicSemesterSchema)}>
-					<PHSelect label="Name" name="name" options={semesterOptions} />
-					<PHSelect label="Year" name="year" options={yearOptions} />
-					<PHSelect label="Start Month" name="startMonth" options={monthOptions} />
-					<PHSelect label="End Month" name="endMonth" options={monthOptions} />
-					<Button htmlType="submit">Create</Button>
-				</PHForm>
-			</Col>
-		</Flex>
+		<>
+			<h1 style={{ textAlign: "center", margin: "20px" }}>Create Academic Semester</h1>
+			<Flex justify="center" align="center">
+				<Col span={6}>
+					<PHForm onSubmit={onSubmit} resolver={zodResolver(academicSemesterSchema)}>
+						<PHSelect label="Name" name="name" options={semesterOptions} />
+						<PHSelect label="Year" name="year" options={yearOptions} />
+						<PHSelect label="Start Month" name="startMonth" options={monthOptions} />
+						<PHSelect label="End Month" name="endMonth" options={monthOptions} />
+						<Button htmlType="submit">Create</Button>
+					</PHForm>
+				</Col>
+			</Flex>
+		</>
 	);
 };
 
