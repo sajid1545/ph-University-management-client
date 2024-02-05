@@ -1,26 +1,26 @@
 import { Button, Pagination, Space, Table, TableColumnsType, TableProps } from "antd";
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { useGetAllStudentsQuery } from "../../../redux/features/admin/userManagement.api";
-import { TQueryParam, TStudent } from "../../../types";
+import { useGetAllFacultiesQuery } from "../../../../redux/features/admin/userManagement.api";
+import { TFaculty, TQueryParam } from "../../../../types";
 
-type TTableData = Pick<TStudent, "fullName" | "id" | "email" | "contactNumber">;
+type TTableData = Pick<TFaculty, "id" | "email" | "contactNumber">;
 
-const StudentData = () => {
+const FacultyData = () => {
 	const [params, setParams] = useState<TQueryParam[]>([]);
 	const [page, setPage] = useState(1);
 
-	const { data: studentData, isFetching } = useGetAllStudentsQuery([
+	const { data: facultyData, isFetching } = useGetAllFacultiesQuery([
+		// { name: "limit", value: 3 },
 		{ name: "page", value: page },
 		{ name: "sort", value: "id" },
 		...params,
 	]);
 
-	const metaData = studentData?.meta;
+	const metaData = facultyData?.meta;
 
-	const tableData = studentData?.data?.map(({ _id, fullName, id, email, contactNumber }) => ({
+	const tableData = facultyData?.data?.map(({ _id, id, email, contactNumber }) => ({
 		key: _id,
-		fullName,
 		id,
 		email,
 		contactNumber,
@@ -28,9 +28,9 @@ const StudentData = () => {
 
 	const columns: TableColumnsType<TTableData> = [
 		{
-			title: "Name",
-			key: "name",
-			dataIndex: "fullName",
+			title: "Email",
+			key: "email",
+			dataIndex: "email",
 		},
 
 		{
@@ -42,13 +42,14 @@ const StudentData = () => {
 			title: "Action",
 			key: "x",
 			render: (item) => {
-				console.log("🚀 ~ StudentData ~ item:", item);
 				return (
 					<Space>
-						<Link to={`/admin/student-data/${item.key}`}>
+						<Link to={`/admin/faculty-data/${item.key}`}>
 							<Button>Details</Button>
 						</Link>
-						<Button>Update</Button>
+						<Link to={`/admin/faculty-update/${item.key}`}>
+							<Button>Update</Button>
+						</Link>
 						<Button>Block</Button>
 					</Space>
 				);
@@ -68,7 +69,7 @@ const StudentData = () => {
 	};
 	return (
 		<div>
-			<h1 style={{ textAlign: "center", margin: "30px" }}>Students</h1>
+			<h1 style={{ textAlign: "center", margin: "30px" }}>Faculties</h1>
 			<Table
 				columns={columns}
 				dataSource={tableData}
@@ -86,4 +87,4 @@ const StudentData = () => {
 	);
 };
 
-export default StudentData;
+export default FacultyData;

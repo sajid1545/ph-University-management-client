@@ -1,54 +1,15 @@
 import { Button, Col, Divider, Form, Input, Row } from "antd";
 import { Controller, FieldValues, SubmitHandler } from "react-hook-form";
-import PHDatePicker from "../../../components/form/PHDatePicker";
-import PHForm from "../../../components/form/PHForm";
-import PHInput from "../../../components/form/PHInput";
-import PHSelect from "../../../components/form/PHSelect";
-import { bloodGroupOptions, genderOptions } from "../../../constants/global";
+import PHDatePicker from "../../../../components/form/PHDatePicker";
+import PHForm from "../../../../components/form/PHForm";
+import PHInput from "../../../../components/form/PHInput";
+import PHSelect from "../../../../components/form/PHSelect";
+import { bloodGroupOptions, genderOptions } from "../../../../constants/global";
 import {
 	useGetAllAcademicDepartmentsQuery,
 	useGetAllSemestersQuery,
-} from "../../../redux/features/admin/academicManagement.api";
-import { useAddStudentMutation } from "../../../redux/features/admin/userManagement.api";
-
-const studentDummyData = {
-	password: "student12345",
-	student: {
-		name: {
-			firstName: "Sami",
-			middleName: "Israr",
-			lastName: "ravi",
-		},
-		gender: "male",
-		dateOfBirth: "1990-01-01",
-		bloodGroup: "A+",
-
-		email: "student2@example.com",
-		contactNumber: "123456410",
-		emergencyContactNo: "9876543210",
-		presentAddress: "123 Main Street, Cityville",
-		permanentAddress: "456 Oak Avenue, Townsville",
-
-		guardian: {
-			fatherName: "James Smith",
-			fatherOccupation: "Engineer",
-			fatherContactNo: "1111111111",
-			motherName: "Emily Smith",
-			motherOccupation: "Doctor",
-			motherContactNo: "2222222222",
-		},
-
-		localGuardian: {
-			name: "Michael Johnson",
-			occupation: "Businessman",
-			contactNo: "3333333333",
-			address: "789 Pine Road, Villagetown",
-		},
-
-		admissionSemester: "65b909b85181ed1b458fd7f4",
-		academicDepartment: "65b908b15181ed1b458fd7ee",
-	},
-};
+} from "../../../../redux/features/admin/academicManagement.api";
+import { useAddStudentMutation } from "../../../../redux/features/admin/userManagement.api";
 
 const studentDefaultData = {
 	name: {

@@ -1,28 +1,5 @@
 import { TAcademicDepartment, TAcademicFaculty, TAcademicSemester } from ".";
 
-export interface TStudent {
-	_id: string;
-	id: string;
-	user: TUser;
-	name: TName;
-	gender: string;
-	dateOfBirth: string;
-	email: string;
-	contactNumber: string;
-	emergencyContactNo: string;
-	bloodGroup: string;
-	presentAddress: string;
-	permanentAddress: string;
-	guardian: TGuardian;
-	localGuardian: TLocalGuardian;
-	profileImage: string;
-	admissionSemester: TAcademicSemester;
-	isDeleted: boolean;
-	academicDepartment: TAcademicDepartment;
-	academicFaculty: TAcademicFaculty;
-	fullName: string;
-}
-
 export type TUser = {
 	_id: string;
 	id: string;
@@ -59,4 +36,63 @@ export type TLocalGuardian = {
 	contactNo: string;
 	address: string;
 	_id: string;
+};
+
+export interface TStudent {
+	_id: string;
+	id: string;
+	user: TUser;
+	name: TName;
+	gender: string;
+	dateOfBirth: string;
+	email: string;
+	contactNumber: string;
+	emergencyContactNo: string;
+	bloodGroup: string;
+	presentAddress: string;
+	permanentAddress: string;
+	guardian: TGuardian;
+	localGuardian: TLocalGuardian;
+	profileImage: string;
+	admissionSemester: TAcademicSemester;
+	isDeleted: boolean;
+	academicDepartment: TAcademicDepartment;
+	academicFaculty: TAcademicFaculty;
+	fullName: string;
+}
+
+export type TFaculty = {
+	_id: string;
+	id: string;
+	name: TName;
+	designation: string;
+	user: string;
+	gender: string;
+	dateOfBirth: string;
+	email: string;
+	contactNumber: string;
+	emergencyContactNo: string;
+	bloodGroup: string;
+	presentAddress: string;
+	permanentAddress: string;
+	profileImage: string;
+	academicDepartment: string;
+	academicFaculty: string;
+};
+
+export type TAdmin = {
+	_id: string;
+	id: string;
+	name: TName;
+	designation: string;
+	user: string;
+	gender: string;
+	dateOfBirth: string;
+	email: string;
+	contactNumber: string;
+	emergencyContactNo: string;
+	bloodGroup: string;
+	presentAddress: string;
+	permanentAddress: string;
+	profileImage: string;
 };

@@ -6,11 +6,18 @@ import AcademicSemester from "../pages/admin/academicManagement/AcademicSemester
 import CreateAcademicDepartment from "../pages/admin/academicManagement/CreateAcademicDepartment";
 import CreateAcademicFaculty from "../pages/admin/academicManagement/CreateAcademicFaculty";
 import CreateAcademicSemester from "../pages/admin/academicManagement/CreateAcademicSemester";
-import CreateAdmin from "../pages/admin/userManagement/CreateAdmin";
-import CreateFaculty from "../pages/admin/userManagement/CreateFaculty";
-import CreateStudent from "../pages/admin/userManagement/CreateStudent";
-import StudentData from "../pages/admin/userManagement/StudentData";
-import StudentDetails from "../pages/admin/userManagement/StudentDetails";
+import AdminData from "../pages/admin/userManagement/admin/AdminData";
+import AdminDetails from "../pages/admin/userManagement/admin/AdminDetails";
+import AdminUpdate from "../pages/admin/userManagement/admin/AdminUpdate";
+import CreateAdmin from "../pages/admin/userManagement/admin/CreateAdmin";
+import CreateFaculty from "../pages/admin/userManagement/faculty/CreateFaculty";
+import FacultyData from "../pages/admin/userManagement/faculty/FacultyData";
+import FacultyDetails from "../pages/admin/userManagement/faculty/FacultyDetails";
+import FacultyUpdate from "../pages/admin/userManagement/faculty/FacultyUpdate";
+import CreateStudent from "../pages/admin/userManagement/student/CreateStudent";
+import StudentData from "../pages/admin/userManagement/student/StudentData";
+import StudentDetails from "../pages/admin/userManagement/student/StudentDetails";
+import StudentUpdate from "../pages/admin/userManagement/student/StudentUpdate";
 
 export const adminPaths = [
 	{
@@ -71,14 +78,46 @@ export const adminPaths = [
 				element: <StudentDetails />,
 			},
 			{
-				name: "Create Admin",
-				path: "create-admin",
-				element: <CreateAdmin />,
+				path: "student-update/:studentId",
+				element: <StudentUpdate />,
 			},
 			{
 				name: "Create Faculty",
 				path: "create-faculty",
 				element: <CreateFaculty />,
+			},
+			{
+				name: "Faculties",
+				path: "faculty-data",
+				element: <FacultyData />,
+			},
+			{
+				path: "faculty-data/:facultyId",
+				element: <FacultyDetails />,
+			},
+			{
+				path: "faculty-update/:facultyId",
+				element: <FacultyUpdate />,
+			},
+			{
+				name: "Create Admin",
+				path: "create-admin",
+				element: <CreateAdmin />,
+			},
+
+			{
+				name: "Admins",
+				path: "admin-data",
+				element: <AdminData />,
+			},
+
+			{
+				path: "admin-data/:adminId",
+				element: <AdminDetails />,
+			},
+			{
+				path: "admin-update/:adminId",
+				element: <AdminUpdate />,
 			},
 		],
 	},
