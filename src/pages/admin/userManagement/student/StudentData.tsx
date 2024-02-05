@@ -1,6 +1,7 @@
 import { Button, Pagination, Space, Table, TableColumnsType, TableProps } from "antd";
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import ChangeStatusModal from "../../../../components/ui/ChangeStatusModal";
 import { useGetAllStudentsQuery } from "../../../../redux/features/admin/userManagement.api";
 import { TQueryParam, TStudent } from "../../../../types";
 
@@ -9,6 +10,8 @@ type TTableData = Pick<TStudent, "fullName" | "id" | "email" | "contactNumber">;
 const StudentData = () => {
 	const [params, setParams] = useState<TQueryParam[]>([]);
 	const [page, setPage] = useState(1);
+	const [showChangeStatusModal, setShowChangeStatusModal] = useState(false);
+	const [id, setId] = useState("");
 
 	const { data: studentData, isFetching } = useGetAllStudentsQuery([
 		{ name: "page", value: page },
@@ -25,6 +28,11 @@ const StudentData = () => {
 		email,
 		contactNumber,
 	}));
+
+	const handleOpenStatusModal = (id: string) => {
+		setId(id);
+		setShowChangeStatusModal(true);
+	};
 
 	const columns: TableColumnsType<TTableData> = [
 		{
@@ -50,7 +58,8 @@ const StudentData = () => {
 						<Link to={`/admin/student-update/${item.key}`}>
 							<Button>Update</Button>
 						</Link>
-						<Button>Block</Button>
+
+						<Button onClick={() => handleOpenStatusModal(item.id)}>Block</Button>
 					</Space>
 				);
 			},
@@ -83,6 +92,14 @@ const StudentData = () => {
 				onChange={(page) => setPage(page)}
 				pageSize={metaData?.limit}
 			/>
+
+			{showChangeStatusModal && (
+				<ChangeStatusModal
+					id={id}
+					isModalOpen={showChangeStatusModal}
+					setIsModalOpen={setShowChangeStatusModal}
+				/>
+			)}
 		</div>
 	);
 };

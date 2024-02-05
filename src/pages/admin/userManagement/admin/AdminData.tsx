@@ -1,6 +1,7 @@
 import { Button, Pagination, Space, Table, TableColumnsType, TableProps } from "antd";
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import ChangeStatusModal from "../../../../components/ui/ChangeStatusModal";
 import { useGetAllAdminsQuery } from "../../../../redux/features/admin/userManagement.api";
 import { TAdmin, TQueryParam } from "../../../../types";
 
@@ -9,6 +10,8 @@ type TTableData = Pick<TAdmin, "id" | "email" | "contactNumber">;
 const AdminData = () => {
 	const [params, setParams] = useState<TQueryParam[]>([]);
 	const [page, setPage] = useState(1);
+	const [showChangeStatusModal, setShowChangeStatusModal] = useState(false);
+	const [id, setId] = useState("");
 
 	const { data: adminData, isFetching } = useGetAllAdminsQuery([
 		// { name: "limit", value: 3 },
@@ -26,6 +29,10 @@ const AdminData = () => {
 		contactNumber,
 	}));
 
+	const handleOpenStatusModal = (id: string) => {
+		setId(id);
+		setShowChangeStatusModal(true);
+	};
 	const columns: TableColumnsType<TTableData> = [
 		{
 			title: "Email",
@@ -50,7 +57,7 @@ const AdminData = () => {
 						<Link to={`/admin/admin-update/${item.key}`}>
 							<Button>Update</Button>
 						</Link>
-						<Button>Block</Button>
+						<Button onClick={() => handleOpenStatusModal(item.id)}>Block</Button>
 					</Space>
 				);
 			},
@@ -83,6 +90,13 @@ const AdminData = () => {
 				onChange={(page) => setPage(page)}
 				pageSize={metaData?.limit}
 			/>
+			{showChangeStatusModal && (
+				<ChangeStatusModal
+					id={id}
+					isModalOpen={showChangeStatusModal}
+					setIsModalOpen={setShowChangeStatusModal}
+				/>
+			)}
 		</div>
 	);
 };

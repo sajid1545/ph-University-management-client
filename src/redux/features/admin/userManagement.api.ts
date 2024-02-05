@@ -137,6 +137,15 @@ const userManagementApi = baseApi.injectEndpoints({
 				body: data,
 			}),
 		}),
+
+		// change user status
+		updateUserStatus: builder.mutation({
+			query: ({ id, status }) => ({
+				url: `/users/change-status/${id}`,
+				method: "POST",
+				body: status,
+			}),
+		}),
 	}),
 });
 
@@ -153,4 +162,5 @@ export const {
 	useGetAllAdminsQuery,
 	useGetSingleAdminQuery,
 	useUpdateAdminMutation,
+	useUpdateUserStatusMutation,
 } = userManagementApi;
