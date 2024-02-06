@@ -26,6 +26,7 @@ const userManagementApi = baseApi.injectEndpoints({
 					meta: response.meta,
 				};
 			},
+			providesTags: ["Student"],
 		}),
 		getSingleStudent: builder.query({
 			query: (id) => ({
@@ -39,6 +40,7 @@ const userManagementApi = baseApi.injectEndpoints({
 				method: "POST",
 				body: data,
 			}),
+			invalidatesTags: ["Student"],
 		}),
 		updateStudent: builder.mutation({
 			query: ({ id, data }) => ({
@@ -46,6 +48,7 @@ const userManagementApi = baseApi.injectEndpoints({
 				method: "PATCH",
 				body: data,
 			}),
+			invalidatesTags: ["Student"],
 		}),
 
 		// Faculties
@@ -71,6 +74,7 @@ const userManagementApi = baseApi.injectEndpoints({
 					meta: response.meta,
 				};
 			},
+			providesTags: ["Faculty"],
 		}),
 		getSingleFaculty: builder.query({
 			query: (id) => ({
@@ -84,6 +88,7 @@ const userManagementApi = baseApi.injectEndpoints({
 				method: "POST",
 				body: data,
 			}),
+			invalidatesTags: ["Faculty"],
 		}),
 		updateFaculty: builder.mutation({
 			query: ({ id, data }) => ({
@@ -91,6 +96,7 @@ const userManagementApi = baseApi.injectEndpoints({
 				method: "PATCH",
 				body: data,
 			}),
+			invalidatesTags: ["Faculty"],
 		}),
 
 		// Admins
@@ -116,6 +122,7 @@ const userManagementApi = baseApi.injectEndpoints({
 					meta: response.meta,
 				};
 			},
+			providesTags: ["Admin"],
 		}),
 		getSingleAdmin: builder.query({
 			query: (id) => ({
@@ -129,6 +136,7 @@ const userManagementApi = baseApi.injectEndpoints({
 				method: "POST",
 				body: data,
 			}),
+			invalidatesTags: ["Admin"],
 		}),
 		updateAdmin: builder.mutation({
 			query: ({ id, data }) => ({
@@ -136,6 +144,7 @@ const userManagementApi = baseApi.injectEndpoints({
 				method: "PATCH",
 				body: data,
 			}),
+			invalidatesTags: ["Admin"],
 		}),
 
 		// change user status
@@ -145,6 +154,7 @@ const userManagementApi = baseApi.injectEndpoints({
 				method: "POST",
 				body: status,
 			}),
+			invalidatesTags: ["Student", "Admin", "Faculty"],
 		}),
 	}),
 });
