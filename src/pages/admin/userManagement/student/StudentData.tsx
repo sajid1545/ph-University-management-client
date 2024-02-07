@@ -1,9 +1,25 @@
-import { Button, Pagination, Space, Table, TableColumnsType, TableProps } from "antd";
+import { SmileOutlined } from "@ant-design/icons";
+import {
+	Button,
+	ConfigProvider,
+	Pagination,
+	Space,
+	Table,
+	TableColumnsType,
+	TableProps,
+} from "antd";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import ChangeStatusModal from "../../../../components/ui/ChangeStatusModal";
 import { useGetAllStudentsQuery } from "../../../../redux/features/admin/userManagement.api";
 import { TQueryParam, TStudent } from "../../../../types";
+
+const customizeRenderEmpty = () => (
+	<div style={{ textAlign: "center" }}>
+		<SmileOutlined style={{ fontSize: 20 }} />
+		<p>Data Not Found</p>
+	</div>
+);
 
 type TTableData = Pick<TStudent, "fullName" | "id" | "email" | "contactNumber">;
 
@@ -79,13 +95,15 @@ const StudentData = () => {
 	return (
 		<div>
 			<h1 style={{ textAlign: "center", margin: "30px" }}>Students</h1>
-			<Table
-				columns={columns}
-				dataSource={tableData}
-				onChange={onChange}
-				loading={isFetching}
-				pagination={false}
-			/>
+			<ConfigProvider renderEmpty={customizeRenderEmpty}>
+				<Table
+					columns={columns}
+					dataSource={tableData}
+					onChange={onChange}
+					loading={isFetching}
+					pagination={false}
+				/>
+			</ConfigProvider>
 			<Pagination
 				current={page}
 				total={metaData?.total}
