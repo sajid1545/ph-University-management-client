@@ -51,7 +51,7 @@ const CreateCourse = () => {
 
 	return (
 		<>
-			<h1 style={{ textAlign: "center", margin: "20px" }}>Semester Registration</h1>
+			<h1 style={{ textAlign: "center", margin: "20px" }}>Create Course</h1>
 			<Flex justify="center" align="center">
 				<Col span={6}>
 					<PHForm onSubmit={onSubmit}>
@@ -60,7 +60,7 @@ const CreateCourse = () => {
 						<PHInput label="Code" name="code" type="text" />
 						<PHInput label="Credits" name="credits" type="text" />
 						<PHSelect
-							label="Courses"
+							label="Pre Requisite Courses"
 							name="preRequisiteCourses"
 							options={coursesOptions}
 							mode="multiple"
