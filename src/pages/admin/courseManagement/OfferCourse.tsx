@@ -1,5 +1,4 @@
 import { Button, Col, Flex } from "antd";
-import moment from "moment";
 import { useState } from "react";
 import { FieldValues, SubmitHandler } from "react-hook-form";
 import PHForm from "../../../components/form/PHForm";
@@ -8,12 +7,20 @@ import PHSelect from "../../../components/form/PHSelect";
 import PHSelectWithWatch from "../../../components/form/PHSelectWithWatcht";
 import { useGetAllAcademicDepartmentsQuery } from "../../../redux/features/admin/academicManagement.api";
 import {
+	useAddOfferedCourseMutation,
 	useGetAllCoursesQuery,
 	useGetAllRegisteredSemestersQuery,
 	useGetCourseFacultiesQuery,
 } from "../../../redux/features/admin/courseManagement.api";
 
+import moment from "moment";
+import { toast } from "sonner";
+import PHDatePicker from "../../../components/form/PHDatePicker";
+import { daysOption } from "../../../constants/global";
+import { TResponse } from "../../../types";
+
 const OfferCourse = () => {
+	const [addOfferedCourse] = useAddOfferedCourseMutation();
 	const [courseId, setCourseId] = useState("");
 
 	// semester registration
@@ -47,12 +54,9 @@ const OfferCourse = () => {
 		})
 	);
 
-	const onSubmit: SubmitHandler<FieldValues> = (data) => {
-		// const dates = [moment(data.day1).format("ddd"), moment(data.day2).format("ddd")];
-		const dates = [];
-		if (data.day) {
-			dates.push(moment(data.day).format("ddd"));
-		}
+	const onSubmit: SubmitHandler<FieldValues> = async (data) => {
+		const toastId = toast.loading("Offering course...");
+
 		const OfferCourseData = {
 			...data,
 			academicFaculty: academicDepartmentData?.data?.find(
@@ -60,10 +64,20 @@ const OfferCourse = () => {
 			)?.academicFaculty?._id,
 			section: Number(data.section),
 			maxCapacity: Number(data.maxCapacity),
-			// days: [...new Set(dates)],
-			days: dates,
+			startTime: moment(new Date(data.startTime)).format("HH:mm"),
+			endTime: moment(new Date(data.endTime)).format("HH:mm"),
 		};
-		console.log("🚀 ~ OfferCourse ~ OfferCourseData:", OfferCourseData);
+
+		try {
+			const res = (await addOfferedCourse(OfferCourseData)) as TResponse<any>;
+			if (res.error) {
+				toast.error(res.error.data.message, { id: toastId });
+			} else {
+				toast.success("Course offered successfully", { id: toastId });
+			}
+		} catch (error) {
+			toast.error("Something went wrong", { id: toastId });
+		}
 	};
 
 	return (
@@ -102,13 +116,11 @@ const OfferCourse = () => {
 						<PHInput label="Section" name="section" type="text" />
 						<PHInput label="Max Capacity" name="maxCapacity" type="text" />
 
-						{/* <Row gutter={16} justify="space-between">
-							<Col>
-							</Col>
-							<Col>
-								<PHDatePicker label="Day 2" name="day2" />
-							</Col>
-						</Row> */}
+						<PHSelect label="Days" name="days" options={daysOption} mode="multiple" />
+
+						<PHDatePicker label="Start Time" name="startTime" picker="time" />
+
+						<PHDatePicker label="End Time" name="endTime" picker="time" />
 
 						<Button htmlType="submit">Submit</Button>
 					</PHForm>

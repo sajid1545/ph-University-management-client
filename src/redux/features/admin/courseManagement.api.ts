@@ -1,4 +1,4 @@
-import { TCourse, TQueryParam, TResponseRedux, TSemester } from "../../../types";
+import { TCourse, TOfferedCourse, TQueryParam, TResponseRedux, TSemester } from "../../../types";
 import { baseApi } from "../../api/baseApi";
 
 const courseManagementApi = baseApi.injectEndpoints({
@@ -70,6 +70,13 @@ const courseManagementApi = baseApi.injectEndpoints({
 				};
 			},
 		}),
+		getSingleCourse: builder.query({
+			query: (id) => ({
+				url: `/courses/${id}`,
+				method: "GET",
+			}),
+			providesTags: ["courses"],
+		}),
 		getCourseFaculties: builder.query({
 			query: (id) => ({
 				url: `/courses/${id}/get-faculties`,
@@ -93,6 +100,40 @@ const courseManagementApi = baseApi.injectEndpoints({
 			}),
 			invalidatesTags: ["courses"],
 		}),
+		// offered courses
+		getAllOfferedCourses: builder.query({
+			query: (args) => {
+				const params = new URLSearchParams();
+
+				if (args) {
+					args.forEach((item: TQueryParam) => {
+						params.append(item.name, item.value as string);
+					});
+				}
+
+				return {
+					url: "/offered-courses",
+					method: "GET",
+					params: params,
+				};
+			},
+			providesTags: ["semester"],
+
+			transformResponse: (response: TResponseRedux<TOfferedCourse[]>) => {
+				return {
+					data: response.data,
+					meta: response.meta,
+				};
+			},
+		}),
+		addOfferedCourse: builder.mutation({
+			query: (data) => ({
+				url: "/offered-courses/create-offered-course",
+				method: "POST",
+				body: data,
+			}),
+			invalidatesTags: ["courses"],
+		}),
 	}),
 });
 
@@ -104,4 +145,7 @@ export const {
 	useAddCourseMutation,
 	useAddFacultiesMutation,
 	useGetCourseFacultiesQuery,
+	useAddOfferedCourseMutation,
+	useGetAllOfferedCoursesQuery,
+	useGetSingleCourseQuery,
 } = courseManagementApi;
