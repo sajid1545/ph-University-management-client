@@ -156,6 +156,15 @@ const userManagementApi = baseApi.injectEndpoints({
 			}),
 			invalidatesTags: ["Student", "Admin", "Faculty"],
 		}),
+
+		// change user password
+		changePassword: builder.mutation({
+			query: (data) => ({
+				url: "/auth/change-password",
+				method: "POST",
+				body: data,
+			}),
+		}),
 	}),
 });
 
@@ -173,4 +182,5 @@ export const {
 	useGetSingleAdminQuery,
 	useUpdateAdminMutation,
 	useUpdateUserStatusMutation,
+	useChangePasswordMutation,
 } = userManagementApi;

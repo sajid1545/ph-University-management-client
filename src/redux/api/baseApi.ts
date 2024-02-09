@@ -32,6 +32,9 @@ const baseQueryWithRefreshToken: BaseQueryFn<FetchArgs, BaseQueryApi, Definition
 	if (result?.error?.status === 404) {
 		toast.error(result.error.data.message);
 	}
+	// if (result?.error?.status === 403) {
+	// 	toast.error(result.error.data.message);
+	// }
 
 	if (result?.error?.status === 401) {
 		//* Send refresh token
