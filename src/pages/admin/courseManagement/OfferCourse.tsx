@@ -15,7 +15,7 @@ import {
 
 import moment from "moment";
 import { toast } from "sonner";
-import PHDatePicker from "../../../components/form/PHDatePicker";
+import PHTimePicker from "../../../components/form/PHTimePicker";
 import { daysOption } from "../../../constants/global";
 import { TResponse } from "../../../types";
 
@@ -118,9 +118,9 @@ const OfferCourse = () => {
 
 						<PHSelect label="Days" name="days" options={daysOption} mode="multiple" />
 
-						<PHDatePicker label="Start Time" name="startTime" picker="time" />
+						<PHTimePicker label="Start Time" name="startTime" />
 
-						<PHDatePicker label="End Time" name="endTime" picker="time" />
+						<PHTimePicker label="End Time" name="endTime" />
 
 						<Button htmlType="submit">Submit</Button>
 					</PHForm>

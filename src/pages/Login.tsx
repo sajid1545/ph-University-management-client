@@ -13,8 +13,8 @@ const Login = () => {
 	const dispatch = useAppDispatch();
 
 	const defaultValues = {
-		id: "A-0001",
-		password: "admin12345",
+		id: "2025010001",
+		password: "student12345",
 	};
 
 	const [login] = useLoginMutation();
